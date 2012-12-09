@@ -12,11 +12,10 @@ public class WebServerMain {
 
         Server server = new Server(8080);
 
-        ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
+        ServletContextHandler context = new ServletContextHandler(server, "/", ServletContextHandler.SESSIONS);
+
         context.addEventListener(new GuiceConfig());
         context.addFilter(GuiceFilter.class, "/*", null);
-        context.setContextPath("/");
-        server.setHandler(context);
         // Jetty wants at least one servlet to start.
         context.addServlet(EmptyServlet.class, "/");
 
