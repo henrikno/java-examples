@@ -1,5 +1,6 @@
 package com.example.module;
 
+import com.example.resource.FooResource;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.servlet.GuiceServletContextListener;
@@ -37,13 +38,13 @@ public class GuiceConfig extends GuiceServletContextListener {
             bind(InstrumentedResourceMethodDispatchAdapter.class).in(Singleton.class);
             bind(PingServlet.class).in(Singleton.class);
             bind(MetricsServlet.class).in(Singleton.class);
+            bind(FooResource.class).in(Singleton.class);
 
             serve("/ping").with(PingServlet.class);
             serve("/metrics").with(MetricsServlet.class);
 
             // Set init params for Jersey
             Map<String, String> params = new HashMap<String, String>();
-            params.put("com.sun.jersey.config.property.packages", "com.example");
             params.put("com.sun.jersey.api.json.POJOMappingFeature", "true");
 
             // Route all requests through GuiceContainer
