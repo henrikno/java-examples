@@ -3,6 +3,7 @@ package com.example.module;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.servlet.GuiceServletContextListener;
+import com.google.inject.servlet.ServletModule;
 import com.sun.jersey.guice.JerseyServletModule;
 import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
 import com.yammer.metrics.guice.InstrumentationModule;
@@ -17,28 +18,36 @@ import java.util.Map;
 public class GuiceConfig extends GuiceServletContextListener {
     @Override
     protected Injector getInjector() {
-        return Guice.createInjector(new JerseyServletModule() {
-            @Override
-            protected void configureServlets() {
-                install(new ExampleModule());
-                install(new InstrumentationModule());
+        return Guice.createInjector(new MyJerseyServletModule());
+    }
 
-                // Bind metrics' resources
-                bind(InstrumentedResourceMethodDispatchAdapter.class).in(Singleton.class);
-                bind(PingServlet.class).in(Singleton.class);
-                bind(MetricsServlet.class).in(Singleton.class);
+    private static class MyJerseyServletModule extends JerseyServletModule {
+        @Override
+        protected void configureServlets() {
+            install(new ExampleModule());
+            install(new InstrumentationModule());
+            install(new MyServletModule());
+        }
+    }
 
-                serve("/ping").with(PingServlet.class);
-                serve("/metrics").with(MetricsServlet.class);
+    private static class MyServletModule extends ServletModule {
+        @Override
+        protected void configureServlets() {
+            // Bind metrics' resources
+            bind(InstrumentedResourceMethodDispatchAdapter.class).in(Singleton.class);
+            bind(PingServlet.class).in(Singleton.class);
+            bind(MetricsServlet.class).in(Singleton.class);
 
-                // Set init params for Jersey
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("com.sun.jersey.config.property.packages", "com.example");
-                params.put("com.sun.jersey.api.json.POJOMappingFeature", "true");
+            serve("/ping").with(PingServlet.class);
+            serve("/metrics").with(MetricsServlet.class);
 
-                // Route all requests through GuiceContainer
-                serve("/*").with(GuiceContainer.class, params);
-            }
-        });
+            // Set init params for Jersey
+            Map<String, String> params = new HashMap<String, String>();
+            params.put("com.sun.jersey.config.property.packages", "com.example");
+            params.put("com.sun.jersey.api.json.POJOMappingFeature", "true");
+
+            // Route all requests through GuiceContainer
+            serve("/*").with(GuiceContainer.class, params);
+        }
     }
 }
