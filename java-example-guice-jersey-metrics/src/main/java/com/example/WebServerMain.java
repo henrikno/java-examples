@@ -5,12 +5,15 @@ import com.example.servlet.EmptyServlet;
 import com.google.inject.servlet.GuiceFilter;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class WebServerMain {
+    private static final Logger logger = LoggerFactory.getLogger(WebServerMain.class);
 
     public static void main(String[] args) throws Exception {
 
-        Server server = new Server(8080);
+        Server server = new Server(8081);
 
         ServletContextHandler context = new ServletContextHandler(server, "/", ServletContextHandler.SESSIONS);
 
@@ -20,6 +23,7 @@ public class WebServerMain {
         context.addServlet(EmptyServlet.class, "/");
 
         server.start();
+        logger.info("Server started");
         server.join();
     }
 }
