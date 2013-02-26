@@ -5,7 +5,6 @@ import com.sun.jersey.test.framework.AppDescriptor;
 import com.sun.jersey.test.framework.JerseyTest;
 import com.sun.jersey.test.framework.WebAppDescriptor;
 import org.junit.Test;
-
 import static org.fest.assertions.Assertions.assertThat;
 
 public class MyResourceTest extends JerseyTest {
