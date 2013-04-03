@@ -15,3 +15,4 @@ Collection of examples showing how to make small applications in Java.
 * jerseytest-guice
   * Example showing how to run jersey both against "embedded grizzly"-container
   in test, and against an externally run jetty server based on a maven profile.
+  test
