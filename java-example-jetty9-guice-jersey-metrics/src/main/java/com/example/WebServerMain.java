@@ -1,9 +1,9 @@
 package com.example;
 
 import com.example.module.GuiceConfig;
-import com.example.servlet.EmptyServlet;
 import com.google.inject.servlet.GuiceFilter;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,8 +19,11 @@ public class WebServerMain {
 
         context.addEventListener(new GuiceConfig());
         context.addFilter(GuiceFilter.class, "/*", null);
-        // Jetty wants at least one servlet to start.
-        context.addServlet(EmptyServlet.class, "/");
+
+        context.addServlet(DefaultServlet.class, "/*");
+        // Optional: configure DefaultServlet for static content
+        //context.setResourceBase("src/main/webapp");
+        //context.setWelcomeFiles(new String[]{"index.html"});
 
         server.start();
         logger.info("Server started");
