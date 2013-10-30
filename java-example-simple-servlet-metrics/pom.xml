@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.example</groupId>
-    <artifactId>java-example-simple-servlet</artifactId>
+    <artifactId>java-example-simple-servlet-metrics</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
 
