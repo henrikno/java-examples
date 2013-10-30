@@ -13,7 +13,7 @@ public class WebServerMain {
 
     public static void main(String[] args) throws Exception {
 
-        Server server = new Server(8081);
+        Server server = new Server(getPort());
 
         ServletContextHandler context = new ServletContextHandler(server, "/", ServletContextHandler.SESSIONS);
 
@@ -25,6 +25,11 @@ public class WebServerMain {
         server.start();
         logger.info("Server started");
         server.join();
+    }
+
+    private static int getPort() {
+        String port = System.getenv("PORT") == null ? "8081" : System.getenv("PORT");
+        return Integer.parseInt(port);
     }
 }
 
