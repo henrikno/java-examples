@@ -10,7 +10,10 @@ Collection of examples showing how to make small applications in Java.
   * Webapp war with Jersey and Metrics.
 
 * java-example-guice-jersey-metrics:
-  * Embedded jetty with Guice, Jersey and Metrics.
+  * Embedded Jetty8 with Guice, Jersey and Metrics.
+
+* java-example-jetty9-guice-jersey-metrics
+  * Embedded Jetty9 with Guice, Jersey and Metrics (Java 1.7 required).
 
 * jerseytest-guice
   * Example showing how to run jersey both against "embedded grizzly"-container
