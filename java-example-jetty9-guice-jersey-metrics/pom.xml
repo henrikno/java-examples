@@ -11,7 +11,7 @@
     <properties>
         <!-- <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> -->
 
-        <eclipse-jetty.version>9.0.5.v20130815</eclipse-jetty.version>
+        <eclipse-jetty.version>9.1.0.v20131115</eclipse-jetty.version>
         <jersey.version>1.17.1</jersey.version>
         <metrics.version>2.2.0</metrics.version>
 
